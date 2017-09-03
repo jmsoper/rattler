@@ -1,0 +1,53 @@
+body {
+  font-family: "VT323", sans-serif;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.notepad h2 {
+  border-bottom: 2px solid red;
+}
+
+p:hover {
+  color: red;
+}
+
+.square {
+  height: 40px;
+  width: 40px;
+  background-image: url("images/square.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  margin: 3px;
+}
+
+.square-letter {
+  align-self: center;
+  font-size: 24px;
+}
+
+.square:hover .square-letter {
+  color: green;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 184px;
+  height: 184px;
+}
+
+.delete-word {
+  margin-left: 5px;
+  color: darkgray;
+}
+
+.delete-word:hover {
+  color: red;
+}
