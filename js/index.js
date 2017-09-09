@@ -32,22 +32,38 @@ $(document).on('click', '.delete-word', function(e){
   $(this).parent().remove();
 });
 
+$('.board').on('mousedown', '.square', function(e){
+  var squareId = e.currentTarget.attributes.id.nodeValue;
+  var square = document.getElementById(squareId);
+  square.classList.add("selected-square");
+  var letter = this.firstChild.innerHTML;
+  if (!collectedSquares.includes(square.attributes.id.nodeValue)){
+    collectedSquares.push(square.attributes.id.nodeValue);
+    collectedString += letter;
+  }
+});
+
 $('.board').on('mouseover', '.square', function(e){
   if (e.buttons === 1){
-      var square = e.currentTarget;
-      square.addClass("selected-square");
-      var letter = this.firstChild.innerHTML;
-      if (!collectedSquares.includes(square.id)){
-        collectedSquares.push(square.id);
-        collectedString += letter;
-      }
+    var squareId = e.currentTarget.attributes.id.nodeValue;
+    var square = document.getElementById(squareId);
+    square.classList.add("selected-square");
+    var letter = this.firstChild.innerHTML;
+    if (!collectedSquares.includes(square.attributes.id.nodeValue)){
+      collectedSquares.push(square.attributes.id.nodeValue);
+      collectedString += letter;
+    }
     }
 });
 
-$('.board').on('mouseup', function(e){
-  if (collectedString.length > 0 && !allWords.includes(collectedString)){
+$(document).on('mouseup', function(e){
+  var squares = document.getElementsByClassName('selected-square');
+  var squareLength = squares.length;
+  for (var i = 0; i < squareLength; i++){
+    squares[0].classList.remove('selected-square');
+  }
+  if (collectedString.length > 1 && !allWords.includes(collectedString)){
     addWord(collectedString, allWords);
-    $('.selected-square').removeClass("selected-square");
     collectedSquares = [];
     collectedString = '';
   }
