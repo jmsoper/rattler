@@ -35,6 +35,7 @@ $(document).on('click', '.delete-word', function(e){
 $('.board').on('mouseover', '.square', function(e){
   if (e.buttons === 1){
       var square = e.currentTarget;
+      square.addClass("selected-square");
       var letter = this.firstChild.innerHTML;
       if (!collectedSquares.includes(square.id)){
         collectedSquares.push(square.id);
@@ -46,6 +47,7 @@ $('.board').on('mouseover', '.square', function(e){
 $('.board').on('mouseup', function(e){
   if (collectedString.length > 0 && !allWords.includes(collectedString)){
     addWord(collectedString, allWords);
+    $('.selected-square').removeClass("selected-square");
     collectedSquares = [];
     collectedString = '';
   }
