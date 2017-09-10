@@ -9,6 +9,7 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous">
     </script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     <div class="top-bar">
@@ -19,18 +20,22 @@
       </div>
     </div>
     <div class="game-container">
+      <div id="online-players">
+        <span>online players</span>
+      </div>
       <div class="opponent-board">
         <div class="scoreboard">Opponent score:
           <span class="opponent-score"></span>
         </div>
-        <h2>opponent words</h2>
+        <h2><span class="opponent-board--name">opponent</span>'s words</h2>
         <div class="opponent-wordlist">
         </div>
       </div>
       <div class="board">
       </div>
       <div class="notepad">
-        <div class="scoreboard">Your score:
+        <div class="scoreboard">
+          <span class="scoreboard-header">Main player</span>'s  score:
           <span class="score"></span>
         </div>
         <h2>saved words</h2>

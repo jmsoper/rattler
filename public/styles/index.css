@@ -73,3 +73,24 @@ p:hover {
 .delete-word:hover {
   color: red;
 }
+
+.listed-player {
+  border-bottom: 1px solid transparent;
+}
+
+.listed-player:hover {
+  border-bottom: 1px solid turquoise;
+}
+
+.listed-player:hover .invite {
+  opacity: 1;
+}
+
+.invite {
+  opacity: 0;
+  color: gray;
+}
+
+.invite:hover {
+  color: turquoise;
+}

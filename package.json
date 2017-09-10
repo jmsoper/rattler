@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "webpack ./js/index.js public/js/bundle.js && node server.js",
     "build": "webpack ./js/index.js  public/js/bundle.js"
   },
   "author": "",

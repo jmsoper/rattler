@@ -1,12 +1,43 @@
 var gameState = require('./game-state.js');
 var { generateBoard, rollDice } = require('./dice.js');
 var { addWord, removeItem, countWords } = require('./words.js');
+var { acceptPlayer } = require('./player.js');
 
 //strip all of these items down into functions which are more decoupled and *take in arguments*
 //all data should come from (and go back to) one place
 //all functions should reach up and down correctly.
 
 generateBoard();
+
+var socket = io();
+
+var name = prompt("Set your player name:");
+
+socket.emit('new-player',{name: name});
+
+var other_players = {};
+
+socket.on('update-players',function(players_data){
+  var players_found = {};
+
+  for (var id in players_data){
+    if (other_players[id] == undefined && id != socket.id) {
+      var data = players_data[id];
+      var p = acceptPlayer(data);
+      other_players[id] = p;
+      console.log("created new player!");
+    }
+    players_found[id] = true;
+  }
+  for(var id in other_players){
+        if(!players_found[id]){
+            other_players[id].destroy();
+            delete other_players[id];
+        }
+    }
+});
+
+$('.scoreboard-header').text(name);
 
 var { allWords, collectedString, collectedSquares } = gameState;
 
