@@ -43,6 +43,7 @@ p:hover {
   display: flex;
   justify-content: center;
   margin: 3px;
+  cursor: pointer;
 }
 
 .selected-square {
@@ -52,6 +53,7 @@ p:hover {
 .square-letter {
   align-self: center;
   font-size: 24px;
+  user-select: none;
 }
 
 .square:hover .square-letter {

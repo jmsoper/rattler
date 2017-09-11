@@ -30,6 +30,9 @@ io.on('connection', function(socket){
       players[socket.id] = state_data;
       io.emit('update-players',players);
     });
+    socket.on('invite-player',function(player_data){ // Listen for new-player event on this client
+      io.emit('receive-invite', player_data);
+    });
     socket.on('disconnect', function(){
       delete players[socket.id];
     })

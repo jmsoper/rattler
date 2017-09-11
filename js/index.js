@@ -12,9 +12,9 @@ generateBoard();
 var socket = io();
 
 var name = prompt("Set your player name:");
-
-socket.emit('new-player',{name: name});
-
+socket.on('connect', function(){
+  socket.emit('new-player',{name: name, playerSocket: socket.id});
+})
 var other_players = {};
 
 socket.on('update-players',function(players_data){
@@ -25,7 +25,6 @@ socket.on('update-players',function(players_data){
       var data = players_data[id];
       var p = acceptPlayer(data);
       other_players[id] = p;
-      console.log("created new player!");
     }
     players_found[id] = true;
   }
@@ -37,16 +36,42 @@ socket.on('update-players',function(players_data){
     }
 });
 
+socket.on('receive-invite', function(data){
+  if (data.opponent.socket == socket.id){
+    console.log("it's for me!!!");
+  } else {
+    console.log("I got an invitation, but it's not for me.");
+  }
+});
+
+
+$(document).on('click', '.invite', function(){
+  var listedPlayer = $(this).parent().children()[0];
+  var opponent = { name: listedPlayer.innerHTML,
+                   socket: listedPlayer.id }
+  var invitor = { name: name, socket: socket.id};
+  socket.emit('invite-player',{opponent: opponent, invitor: invitor});
+});
+
 $('.scoreboard-header').text(name);
 
-var { allWords, collectedString, collectedSquares } = gameState;
+var { allWords,
+  collectedString,
+  collectedSquares,
+  selectOpponent,
+  startGame,
+  isGameStarted,
+  isOpponentSelected,
+  isGameOver,
+  fetchOpponent,
+  selectOpponent,
+} = gameState;
 
 function restartGame (){
   clearBoard();
   $('.wordlist').children().remove();
   $('.score').text('');
   rollDice();
-
 }
 
 function clearBoard (){
